@@ -1,0 +1,30 @@
+<div *ngIf="client">
+  <div class="container">
+    <h2><span>Update client:</span><br> {{client.firstName}} {{client.lastName}}</h2>
+    <div>
+      <label class="mr-5">First name:
+        <br>
+        <input [(ngModel)]="client.firstName" placeholder="First Name">
+        <br>
+      </label>
+      <label class="mr-5">Last name:
+        <br>
+        <input [(ngModel)]="client.lastName" placeholder="Last Name">
+        <br>
+      </label>
+      <br>
+      <label class="mr-5">Date of Birth:
+        <br>
+        <input [(ngModel)]="client.dateOfBirth" placeholder="Date of Birth">
+        <br>
+      </label>
+      <label class="mr-5">CNP:
+        <br>
+        <input [(ngModel)]="client.cnp" placeholder="CNP">
+        <br>
+      </label>
+    </div>
+    <button (click)="goBack()" class="btn btn-secondary mr-2">Back</button>
+    <button (click)="update()" class="btn btn-warning mr-2">Update</button>
+  </div>
+</div>

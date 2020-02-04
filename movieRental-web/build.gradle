@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':movieRental-core')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}

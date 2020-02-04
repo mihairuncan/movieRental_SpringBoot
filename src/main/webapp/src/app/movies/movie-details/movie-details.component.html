@@ -1,0 +1,31 @@
+<div *ngIf="movie">
+  <div class="container">
+    <h2><span>Update movie:</span><br> {{movie.name}} {{movie.year}}</h2>
+    <div>
+      <label class="mr-5">Name:
+        <br>
+        <input [(ngModel)]="movie.name" placeholder="Name">
+        <br>
+      </label>
+      <label class="mr-5">Genre:
+        <br>
+        <input [(ngModel)]="movie.genre" placeholder="Genre">
+        <br>
+      </label>
+      <br>
+      <label class="mr-5">Year:
+        <br>
+        <input [(ngModel)]="movie.year" placeholder="Year">
+        <br>
+      </label>
+      <label class="mr-5">Rental Price:
+        <br>
+        <input [(ngModel)]="movie.rentalPrice" placeholder="Rental Price">
+        <br>
+      </label>
+    </div>
+    <button (click)="goBack()" class="btn btn-secondary mr-2">Back</button>
+    <button (click)="update()" class="btn btn-warning mr-2">Update</button>
+  </div>
+</div>
+

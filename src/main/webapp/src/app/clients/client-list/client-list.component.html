@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Clients</h2>
+  <table class="table">
+    <thead *ngIf="clients?.length!==0">
+    <!--    <thead *ngIf="clients">-->
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Date of Birth</th>
+      <th scope="col">CNP</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let client of clients"
+        (click)="onSelect(client)"
+        [class.selected]="client === selectedClient">
+      <td>{{client.firstName}}</td>
+      <td>{{client.lastName}}</td>
+      <td>{{client.dateOfBirth | date:'dd.MM.yyyy'}}</td>
+      <td>{{client.cnp}}</td>
+      <td>
+        <button (click)="delete(client); $event.stopPropagation()">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+    <!--    <span *ngIf="clients.length===0" class="badge badge-info" role="alert">-->
+    <!--    <span *ngIf="clients === undefined" class="badge badge-info" role="alert">-->
+    <span *ngIf="!clients" class="badge badge-info" role="alert">
+    No clients to display
+  </span>
+  </table>
+  <div *ngIf="selectedClient">
+    <h2>
+      {{selectedClient.firstName | uppercase}} was selected
+    </h2>
+    <button (click)="goToDetails()" class="btn btn-warning">View Details</button>
+  </div>
+  <!--  <app-client-details [client]="selectedClient"></app-client-details>-->
+</div>

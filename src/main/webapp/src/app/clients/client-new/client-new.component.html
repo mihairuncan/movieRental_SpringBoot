@@ -1,0 +1,33 @@
+<div class="my-3">
+  <div class="container text-center">
+    <h2 class="text-secondary">New Client</h2>
+    <label class="mr-3"> First Name:
+      <br>
+      <input #firstName>
+      <br>
+    </label>
+    <label class="mr-3"> Last Name:
+      <br>
+      <input #lastName>
+      <br>
+    </label>
+    <br>
+    <label class="mr-3"> Date of Birth:
+      <br>
+      <input #dateOfBirth placeholder="dd.mm.yyyy">
+      <br>
+    </label>
+    <label class="mr-3"> CNP:
+      <br>
+      <input #cnp>
+      <br>
+
+    </label>
+    <br>
+    <button (click)="goBack()" class="btn btn-secondary mr-5">Back</button>
+    <button (click)="save(firstName.value,lastName.value,dateOfBirth.value,cnp.value)" class="btn btn-warning">Save
+    </button>
+  </div>
+</div>
+
+

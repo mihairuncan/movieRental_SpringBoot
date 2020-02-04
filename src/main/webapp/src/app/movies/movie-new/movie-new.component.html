@@ -1,0 +1,30 @@
+<div class="my-3">
+  <div class="container text-center">
+    <h2 class="text-secondary">New Movie</h2>
+    <label class="mr-3"> Name:
+      <br>
+      <input #name>
+      <br>
+    </label>
+    <label class="mr-3"> Genre:
+      <br>
+      <input #genre>
+      <br>
+    </label>
+    <br>
+    <label class="mr-3"> Year:
+      <br>
+      <input #year>
+      <br>
+    </label>
+    <label class="mr-3"> Rental Price:
+      <br>
+      <input #rentalPrice>
+      <br>
+    </label>
+    <br>
+    <button (click)="goBack()" class="btn btn-secondary mr-5">Back</button>
+    <button (click)="save(name.value,genre.value,year.value,rentalPrice.value)" class="btn btn-warning">Save
+    </button>
+  </div>
+</div>
