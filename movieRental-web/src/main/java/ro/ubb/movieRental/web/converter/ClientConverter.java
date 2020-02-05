@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 @Component
-public class ClientConverter extends BaseConverter<Client, ClientDto>{
+public class ClientConverter extends AbstractConverterBaseEntityConverter<Client, ClientDto>{
     @Override
     public Client convertDtoToModel(ClientDto dto) {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");

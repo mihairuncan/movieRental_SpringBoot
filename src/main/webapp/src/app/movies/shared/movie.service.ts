@@ -26,7 +26,6 @@ export class MovieService {
     const url = `${this.moviesUrl}/${movieId}`;
     return this.httpClient
       .delete(url);
-
   }
 
   update(movie: Movie): Observable<Movie> {
@@ -36,7 +35,7 @@ export class MovieService {
   }
 
   save(movie): Observable<Movie> {
-    console.log("movie service: ", movie);
+    console.log('movie service: ', movie);
 
     return this.httpClient
       .post<Movie>(this.moviesUrl, movie);

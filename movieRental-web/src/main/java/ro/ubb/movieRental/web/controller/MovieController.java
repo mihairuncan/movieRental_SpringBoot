@@ -29,7 +29,7 @@ public class MovieController {
         LOGGER.trace("getMovies --- method entered");
 
         Set<Movie> movies = movieService.getAllMovies();
-        MoviesDto result = new MoviesDto(movieConverter.convertModelsToDtos(movies));
+        MoviesDto result = new MoviesDto((Set<MovieDto>) movieConverter.convertModelsToDtos(movies));
 
         LOGGER.trace("getMovies: result={}", result);
 
@@ -48,13 +48,22 @@ public class MovieController {
         return result;
     }
 
-    @RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
-    MovieDto updateMovie(@PathVariable Long id,
+    @RequestMapping(value = "/movies/{movieId}", method = RequestMethod.PUT)
+    MovieDto updateMovie(@PathVariable Long movieId,
                           @RequestBody MovieDto movieDto) {
 
         LOGGER.trace("updateMovie --- method entered");
 
-        Movie movie = movieService.update(id,movieConverter.convertDtoToModel(movieDto));
+
+
+        Movie movie = movieService.update(
+                movieId,
+                movieDto.getName(),
+                movieDto.getGenre(),
+                movieDto.getYear(),
+                movieDto.getRentalPrice(),
+                movieDto.getClients());
+
         MovieDto result = movieConverter.convertModelToDto(movie);
 
         LOGGER.trace("updateMovie --- method exit");

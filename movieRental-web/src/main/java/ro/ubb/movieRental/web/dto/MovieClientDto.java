@@ -2,14 +2,17 @@ package ro.ubb.movieRental.web.dto;
 
 import lombok.*;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(callSuper = true)
+@ToString
 @Builder
-public class RentDto extends BaseDto {
-    private long movieId;
-    private long clientId;
+public class MovieClientDto {
+    private Long clientId;
+    private Long movieId;
+    private String clientName;
     private String pickUpDate;
 }

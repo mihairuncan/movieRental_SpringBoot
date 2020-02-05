@@ -1,15 +1,21 @@
 package ro.ubb.movieRental.core.service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.ubb.movieRental.core.model.BaseEntity;
+import ro.ubb.movieRental.core.model.Client;
 import ro.ubb.movieRental.core.model.Movie;
+import ro.ubb.movieRental.core.model.MovieClient;
 import ro.ubb.movieRental.core.model.exceptions.ValidatorException;
+import ro.ubb.movieRental.core.repository.ClientRepository;
 import ro.ubb.movieRental.core.repository.MovieRepository;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -20,6 +26,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Autowired
     MovieRepository movieRepository;
+
+    @Autowired
+    ClientRepository clientRepository;
 
     /**
      * Find the entity with the given {@code id}.
@@ -77,30 +86,32 @@ public class MovieServiceImpl implements MovieService {
 
     }
 
-    /**
-     * @param movie must not be null
-     * @return null if the Movie was updated otherwise (e.g. id does not exist) returns the Movie.
-     */
     @Override
     @Transactional
-    public Movie update(Long id, Movie movie) {
+    public Movie update(Long id,String name,String genre,Integer year,Integer rentalPrice,Set<Long> clients) {
         LOGGER.trace("update --- method entered");
 
         try {
-            movieValidator.validate(movie);
-            LOGGER.trace("update --- movie is valid");
+//            movieValidator.validate(movie);
+//            LOGGER.trace("update --- movie is valid");
 
             Movie update = movieRepository.findById(id).get();
-            update.setName(movie.getName());
-            update.setGenre(movie.getGenre());
-            update.setYear(movie.getYear());
-            update.setRentalPrice(movie.getRentalPrice());
+            update.setName(name);
+            update.setGenre(genre);
+            update.setYear(year);
+            update.setRentalPrice(rentalPrice);
 
+            update.getClients().stream()
+                    .map(BaseEntity::getId)
+                    .forEach(clients::remove);
+            List<Client> clientList =
+                    clientRepository.findAllById(clients);
+            clientList.forEach(update::addClient);
             LOGGER.trace("update: result={}", update);
 
             return update;
-        } catch (ValidatorException ve) {
 
+        } catch (ValidatorException ve) {
             ve.printStackTrace();
             LOGGER.error("movie update error", ve);
         }
@@ -123,5 +134,29 @@ public class MovieServiceImpl implements MovieService {
         LOGGER.trace("delete --- method exit");
 
     }
+
+    @Override
+    @Transactional
+    public Movie updateMovieRents(Long movieId, Map<Long, Date> rents) {
+
+        LOGGER.trace("updateMovieRents: movieId={},rents={}",movieId,rents);
+
+        Movie movie = movieRepository.getOne(movieId);
+
+        movie.getMovieClients().forEach(
+                movieClient -> movieClient.setPickUpDate(rents.get(movieClient.getClient().getId())));
+
+        return movie;
+    }
+
+    @Override
+    @Transactional
+    public Movie addMovieRent(Long movieId, MovieClient movieClient) {
+        Movie movie = movieRepository.getOne(movieId);
+        movie.getMovieClients().add(movieClient);
+
+        return movie;
+    }
+
 
 }

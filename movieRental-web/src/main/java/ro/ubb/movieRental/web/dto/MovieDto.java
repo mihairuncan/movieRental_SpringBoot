@@ -2,6 +2,8 @@ package ro.ubb.movieRental.web.dto;
 
 import lombok.*;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -11,6 +13,7 @@ import lombok.*;
 public class MovieDto extends BaseDto {
     private String name;
     private String genre;
-    private int year;
-    private int rentalPrice;
+    private Integer year;
+    private Integer rentalPrice;
+    private Set<Long> clients;
 }

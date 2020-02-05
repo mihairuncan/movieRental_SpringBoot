@@ -29,7 +29,7 @@ public class ClientController {
         LOGGER.trace("getClients --- method entered!!!!!!!!!!!!!!!!!!!!!!!");
 
         Set<Client> clients = clientService.getAllClients();
-        ClientsDto result = new ClientsDto(clientConverter.convertModelsToDtos(clients));
+        ClientsDto result = new ClientsDto((Set<ClientDto>) clientConverter.convertModelsToDtos(clients));
 
         LOGGER.trace("getClients: result={}",result);
 
