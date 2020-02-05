@@ -42,7 +42,7 @@ public class MovieClientConverter
         return MovieClientDto.builder()
                 .movieId(movieClient.getMovie().getId())
                 .clientId(movieClient.getClient().getId())
-                .clientName(movieClient.getClient().getFirstName())
+                .clientName(movieClient.getClient().getFirstName() + " " + movieClient.getClient().getLastName())
                 .pickUpDate(movieClient.getPickUpDate().toString())
                 .build();
     }

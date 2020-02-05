@@ -2,8 +2,6 @@ package ro.ubb.movieRental.web.dto;
 
 import lombok.*;
 
-import java.util.Date;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
